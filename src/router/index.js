@@ -1,8 +1,8 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import Home from '../views/Home.vue'
-import VuexCounter from "@/components/vuex/VuexCounter";
-import VuexEmployees from "@/components/vuex/VuexEmployees";
-import VuexUserList from "@/components/vuex/VuexUserList";
+import Home from '../Pages/Home.vue'
+import Manga from '@/components/Manga'
+import Chapter from '@/components/Chapter'
+import MangaPage from '@/Pages/MangaPage'
 
 const routes = [
     {
@@ -11,19 +11,19 @@ const routes = [
         component: Home
     },
     {
-        path: '/counter',
-        name: 'Counter',
-        component: VuexCounter
+        path: '/MangaPage',
+        name: 'MangaPage',
+        component: MangaPage
     },
     {
-        path: '/employees',
-        name: 'Employees',
-        component: VuexEmployees
+        path: '/manga',
+        name: 'MangaBookList',
+        component: Manga
     },
     {
-        path: '/users',
-        name: 'UserList',
-        component: VuexUserList
+        path: '/manga',
+        name: 'Chapter',
+        component: Chapter
     }
 ]
 

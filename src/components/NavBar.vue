@@ -5,13 +5,8 @@
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link class="nav-link" to="/counter">Counter</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/employees">Employees</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/users">User List</router-link>
+            <router-link class="nav-link" to="/manga">Manga Books List</router-link>
+            <!-- <router-link class="nav-link" to="/MangaPage">Manga Page</router-link> -->
           </li>
         </ul>
       </div>
