@@ -1,5 +1,5 @@
 # vue3-vuex-manga-viewer
-
+<img src="progress.png">
 ## Project setup
 ```
 npm install
