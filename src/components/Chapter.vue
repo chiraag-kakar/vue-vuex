@@ -4,7 +4,7 @@
       <button class="justify-content mr-2" @click="method(todo2)">{{todo2}}</button>
     </div>
   </div>
-  {{getChapterDetails.data.book}}
+  {{getChapterDetails}}
 </template>   
 <script>
 import { mapState } from 'vuex';
@@ -27,12 +27,6 @@ export default defineComponent({
   },
   computed: {
     ...mapState({
-      datas: function (state) {
-        const c = state
-        const d = JSON.parse(JSON.stringify(c))
-        const e = d.mangaModule.bookList
-        return e
-      },
       books: function (state) {
         const c = state
         const d = JSON.parse(JSON.stringify(c))
@@ -42,9 +36,9 @@ export default defineComponent({
       getChapterDetails: function (state) {
           const c = state
           const d = JSON.parse(JSON.stringify(c))
-          const e = d.mangaModule.chapter_details
+          const e = d.mangaModule.chapter_details.data
           if(e) return e
-          else return {}
+          else return []
         }
     })
   },
