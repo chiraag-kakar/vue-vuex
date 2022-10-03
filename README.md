@@ -1,4 +1,4 @@
-# vuex-crash-course
+# vue3-vuex-manga-viewer
 
 ## Project setup
 ```

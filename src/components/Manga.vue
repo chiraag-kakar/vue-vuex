@@ -2,16 +2,12 @@
   <div class="container mt-3">
     <div class="row">
       <div class="col">
-        <p class="h3 text-success">Lorem Ipsum Dormet</p>
-        <p class="fst-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad alias aliquam aliquid aperiam
-          dignissimos dolor
-          doloribus dolorum est facere ipsam, laborum molestiae molestias numquam, quis tempore ut, veritatis voluptates
-          voluptatum.</p>
+        <p class="h3 text-success">Manga Viewer</p>
+        <p class="fst-italic"></p>
       </div>
     </div>
   </div>
-  {{books}}
-  <div class="flex-container">
+  <div class="flex-container" v-if="book">
     <div v-for="(todo1, index1) in books" :key="index1">
       <button class="justify-content mr-2" @click="method(index1)">{{todo1.title}}</button>
     </div>
