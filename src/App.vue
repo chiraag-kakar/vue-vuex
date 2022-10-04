@@ -1,6 +1,7 @@
 <template>
   <NavBar/>
-  <router-view/>
+  <!-- <router-view/> -->
+  <Manga/>
 </template>
 
 <style>
@@ -8,8 +9,9 @@
 </style>
 <script>
 import NavBar from "@/components/NavBar";
+import Manga from "./components/Manga.vue";
 
 export default {
-  components: {NavBar}
+  components: { NavBar, Manga }
 }
 </script>

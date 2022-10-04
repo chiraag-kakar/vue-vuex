@@ -1,7 +1,5 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import Home from '../Pages/Home.vue'
-import Manga from '@/components/Manga'
-import Chapter from '@/components/Chapter'
 
 const routes = [
     {
@@ -12,13 +10,8 @@ const routes = [
     {
         path: '/manga',
         name: 'MangaBookList',
-        component: Manga
+        component: () => import('../components/Manga')
     },
-    {
-        path: '/manga',
-        name: 'Chapter',
-        component: Chapter
-    }
 ]
 
 const router = createRouter({

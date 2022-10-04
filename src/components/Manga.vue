@@ -7,42 +7,38 @@
       </div>
     </div>
   </div>
-  <div class="flex-container">
-    <div v-for="(todo1, index1) in books" :key="index1">
-      <button class="justify-content mr-2" @click="method(index1)">{{todo1.title}}</button>
+  <div class="flex-container" v-if="books">
+    <div v-for="(todo1, index) in books" :key="index">
+      <button class="justify-content mr-2" @click="handleBookSelect(index)">{{todo1.title}}</button>
     </div>
   </div>
-  <div class="flex-container">
-    <Chapter :data="getBookIndex" />
-  </div>
-
+  <Chapter v-if="books[selectedBookInd]" :data="getBookIndex" />
 </template>
   
 <script>
 // import { mapGetters } from "vuex";
 import { mapState } from 'vuex';
-import { ref, defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 import Chapter from './Chapter.vue'
 export default defineComponent({
   name: "MangaComponent",
   components: { Chapter },
   beforeMount() {
+    console.log('beforemount manag')
     this.$store.dispatch("mangaModule/getBooks")
   },
   setup() {
     return {
-      c: '',
-      d: {},
-      e: {},
-      current: ref(3),
+      selectedBookInd: 0
     }
   },
   methods: {
-    method(index) {
+    handleBookSelect(index) {
+      this.selectedBookInd = index
       this.$store.commit("mangaModule/SAVE_BOOK_INDEX", index)
+      this.$store.dispatch("mangaModule/getBookDetails", index)
       const c = this.books[index]
       const d = c.chapter_ids
-      this.$router.push('/manga');
       return d
     }
   },
@@ -54,16 +50,10 @@ export default defineComponent({
   computed: {
     ...mapState({
       books: function (state) {
-        const c = state
-        const d = JSON.parse(JSON.stringify(c))
-        const e = d.mangaModule.bookList.books.data
-        if(e) return e
-        else return []
+        return state.mangaModule.books
       },
       getBookIndex: function (state) {
-        const c = state
-        const d = JSON.parse(JSON.stringify(c))
-        if(d) return d.mangaModule.index1
+        if (state.mangaModule.book_index) return state.mangaModule.book_index
         else return 0
       }
     })
@@ -75,6 +65,7 @@ export default defineComponent({
 .flex-container {
   display: flex;
   justify-content: center;
+  padding: 1rem;
   /* background-color: green; */
 }
 </style>

@@ -1,63 +1,85 @@
 <template>
-  <div class="flex-container" v-if="books">
-    <div v-for="(todo2, index2) in books[data].chapter_ids" :key="index2">
-      <button class="justify-content mr-2" @click="method(todo2)">{{todo2}}</button>
+  <div class="chapter-container"  v-if="books">
+    <div class="flex-container">
+      <div v-for="(todo, index) in books[data].chapter_ids" :key="index">
+        <button class="justify-content mr-2" @click="handleChapterSelect(todo)">{{todo}}</button>
+      </div>
+      <!-- <button class="justify-content mr-2" @click="handleChapterSelect(chapter_index)">{{books[data].chapter_ids[chapter_index]}}</button> -->
     </div>
-  </div>
-  <div class="flex-container" v-for="(x,y) in getChapterDetails" :key="y">
-    <div class="row">
-      <img :src="x.image.file" alt="" />
+    <!-- {{getChapterDetails.length}} -->
+    <div v-if="getChapterDetails[PageNo]" class="image-container">
+      <button class="button" @click="handlePrev()">Prev</button>
+      <img :src="getChapterDetails[PageNo].image.file" alt="" />
+      <button class="button" @click="handleNext()">Next</button>
     </div>
   </div>
 </template>
 <script>
 import { mapState } from 'vuex';
 import { defineComponent } from 'vue';
-import 'vue3-carousel/dist/carousel.css';
 export default defineComponent({
   name: "ChapterComponent",
   props: ['data'],
   setup() {
-    return {
-      c: '',
-      d: {},
-      e: {},
-    }
   },
-  async beforeMount() {
-    console.log('before')
+  beforeMount() {
     if (this.books) {
       const f = this.books[this.data].chapter_ids[0]
-      await this.$store.dispatch("mangaModule/getChapterDetails", f)
+      this.$store.dispatch("mangaModule/getChapterDetails", f)
     }
   },
   methods: {
-    async method(cid) {
-      await this.$store.dispatch("mangaModule/getChapterDetails", cid)
+    handleChapterSelect(cid) {
+      this.$store.dispatch("mangaModule/getChapterDetails", cid)
+      this.$store.commit("mangaModule/SAVE_CHAPTER_ID", cid)
+      // this.$store.commit("mangaModule/SAVE_CHAPTER_LENGTH", this.books[this.data].chapter_ids[cid])
+    },
+    handleNext() {
+      this.$store.dispatch("mangaModule/setPageNo", 1)
+    },
+    handlePrev() {
+      this.$store.dispatch("mangaModule/setPageNo", -1)
     }
-
   },
   computed: {
     ...mapState({
       books: function (state) {
-        const c = state
-        const d = JSON.parse(JSON.stringify(c))
-        const e = d.mangaModule.bookList.books.data
-        return e
+        return state.mangaModule.books
       },
       getChapterDetails: function (state) {
-        const c = state
-        const d = JSON.parse(JSON.stringify(c))
-        if (d.mangaModule.chapter_details.data) {
-          const e = d.mangaModule.chapter_details.data.pages
-          if (e) return e
-        } else {
-          return []
-        }
-        return []
+        return state.mangaModule.chapter_details
+      },
+      PageNo: function(state) {
+        return state.mangaModule.page_no
+      },
+      ChapterInd: function(state) {
+        return state.mangaModule.chapter_index
       }
     })
   },
+  watch: {
+    PageNo: {
+      handler: function (newValue) {
+        console.log('PageNo', newValue)
+      },
+      deep: true,
+      immediate: true
+    },
+    books: {
+      handler: function (newValue) {
+        console.log('books', newValue)
+      },
+      deep: true,
+      immediate: true
+    },
+    getChapterDetails: {
+      handler: function (newValue) {
+        console.log('getChapterDetails', newValue)
+      },
+      deep: true,
+      immediate: true
+    },
+  }
 })
 </script>
     
@@ -66,6 +88,27 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   /* background-color: green; */
+}
+
+.chapter-container {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+}
+
+.image-container {
+  flex: 1;
+  display: flex;
+}
+
+.image-container img {
+  height: 70vh;
+}
+.button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
 }
 </style>
     

@@ -1,16 +1,12 @@
 function state() {
     return {
-        bookList: {
-            books: [],
-        },
-        index1: 0,
-        chapterid_map: {
-            current_id: 0,
-            chapter_id_arr: []
-        },
+        book:{},
+        books: [],
         chapter_index: 0,
         book_index: 0,
-        chapter_details:{}
+        chapter_details:[],
+        page_no:0,
+        chapter_length:0,
     }
 }
 
