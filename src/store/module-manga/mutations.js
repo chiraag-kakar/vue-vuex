@@ -18,18 +18,12 @@ const mutation = {
         state.chapter_length = payload // chapter length
     },
     UPDATE_PAGE_NO: function(state, pageNo) {
-        if((pageNo==1 || pageNo ==-1)) {
+        if((pageNo==1 || pageNo ==-1)&&state.page_no <= state.chapter_details.length) {
+            state.page_no += pageNo
             if(state.page_no==-1) state.page_no=0
-            if(state.page_no <= state.chapter_details.length) state.page_no += pageNo
-            // if(state.page_no>state.chapter_details.length) {
-            //     state.book_index += 1
-            //     state.page_no = 0
-            //     state.chapter_index =0
-            // }
         }
-        else {
-            state.page_no = 0
-        }
+        else if(state.page_no > state.chapter_details.length) state.page_no = 0
+        else state.page_no=1
     }
 }
 export default mutation

@@ -11,7 +11,6 @@ const actions = {
     getBookDetails: async function (ctx, bookId) {
         apiClient.get(`books/${bookId}/`).then(response => {
             ctx.commit("GET_BOOK_DETAILS", response)
-            // resolve(response)
     })
     },
     getChapterDetails: async function (ctx, chapterId) {

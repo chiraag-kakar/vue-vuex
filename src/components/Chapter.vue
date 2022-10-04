@@ -49,6 +49,7 @@ export default defineComponent({
         return state.mangaModule.chapter_details
       },
       PageNo: function(state) {
+        console.log('Page No', state.mangaModule.page_no)
         return state.mangaModule.page_no
       },
       ChapterId: function(state) {
