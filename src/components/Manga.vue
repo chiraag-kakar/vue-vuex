@@ -35,8 +35,8 @@ export default defineComponent({
   methods: {
     handleBookSelect(index) {
       this.selectedBookInd = index
-      this.$store.commit("mangaModule/SAVE_CHAPTER_ID", this.books[index].chapter_ids[0])
       this.$store.commit("mangaModule/SAVE_BOOK_INDEX", index)
+      this.$store.dispatch("mangaModule/getChapterDetails", this.books[index].chapter_ids[0])
     }
   },
   // computed: {
