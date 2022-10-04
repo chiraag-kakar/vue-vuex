@@ -8,8 +8,8 @@
     </div>
   </div>
   <div class="flex-container" v-if="books">
-    <div v-for="(todo1, index) in books" :key="index">
-      <button class="justify-content mr-2" @click="handleBookSelect(index)">{{todo1.title}}</button>
+    <div v-for="(todo, index) in books" :key="index">
+      <button class="justify-content mr-2" @click="handleBookSelect(index)">{{todo.title}}</button>
     </div>
   </div>
   <Chapter v-if="books[selectedBookInd]" :data="selectedBookInd" />
@@ -35,10 +35,8 @@ export default defineComponent({
   methods: {
     handleBookSelect(index) {
       this.selectedBookInd = index
+      this.$store.commit("mangaModule/SAVE_CHAPTER_ID", this.books[index].chapter_ids[0])
       this.$store.commit("mangaModule/SAVE_BOOK_INDEX", index)
-      const c = this.books[index]
-      const d = c.chapter_ids
-      return d
     }
   },
   // computed: {

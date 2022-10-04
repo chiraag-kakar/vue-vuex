@@ -2,7 +2,7 @@ function state() {
     return {
         book:{},
         books: [],
-        chapter_index: 0,
+        chapter_id: 1,
         book_index: 0,
         chapter_details:[],
         page_no:0,

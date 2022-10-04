@@ -51,14 +51,14 @@ export default defineComponent({
       PageNo: function(state) {
         return state.mangaModule.page_no
       },
-      ChapterInd: function(state) {
-        return state.mangaModule.chapter_index
+      ChapterId: function(state) {
+        return state.mangaModule.chapter_id
       },
       getBookIndex: function(state) {
         return state.mangaModule.book_index
       },
       getChapterIndex: function(state) {
-        return state.mangaModule.chapter_index
+        return state.mangaModule.chapter_id
       }
     })
   },
