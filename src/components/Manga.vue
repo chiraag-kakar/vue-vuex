@@ -12,7 +12,7 @@
       <button class="justify-content mr-2" @click="handleBookSelect(index)">{{todo1.title}}</button>
     </div>
   </div>
-  <Chapter v-if="books[selectedBookInd]" :data="getBookIndex" />
+  <Chapter v-if="books[selectedBookInd]" :data="selectedBookInd" />
 </template>
   
 <script>
@@ -36,7 +36,6 @@ export default defineComponent({
     handleBookSelect(index) {
       this.selectedBookInd = index
       this.$store.commit("mangaModule/SAVE_BOOK_INDEX", index)
-      this.$store.dispatch("mangaModule/getBookDetails", index)
       const c = this.books[index]
       const d = c.chapter_ids
       return d
@@ -51,10 +50,6 @@ export default defineComponent({
     ...mapState({
       books: function (state) {
         return state.mangaModule.books
-      },
-      getBookIndex: function (state) {
-        if (state.mangaModule.book_index) return state.mangaModule.book_index
-        else return 0
       }
     })
   }

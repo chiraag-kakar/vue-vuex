@@ -7,6 +7,7 @@ function state() {
         chapter_details:[],
         page_no:0,
         chapter_length:0,
+        book_length:0,
     }
 }
 

@@ -1,17 +1,17 @@
 <template>
   <div class="chapter-container"  v-if="books">
     <div class="flex-container">
-      <div v-for="(todo, index) in books[data].chapter_ids" :key="index">
+      <div v-for="(todo, index) in books[getBookIndex].chapter_ids" :key="index">
         <button class="justify-content mr-2" @click="handleChapterSelect(todo)">{{todo}}</button>
       </div>
-      <!-- <button class="justify-content mr-2" @click="handleChapterSelect(chapter_index)">{{books[data].chapter_ids[chapter_index]}}</button> -->
     </div>
-    <!-- {{getChapterDetails.length}} -->
     <div v-if="getChapterDetails[PageNo]" class="image-container">
       <button class="button" @click="handlePrev()">Prev</button>
+      
       <img :src="getChapterDetails[PageNo].image.file" alt="" />
       <button class="button" @click="handleNext()">Next</button>
     </div>
+    <div v-if="getChapterDetails[PageNo]">{{(getChapterDetails[PageNo].page_index)+1}}/{{getChapterDetails.length}}</div>
   </div>
 </template>
 <script>
@@ -24,15 +24,14 @@ export default defineComponent({
   },
   beforeMount() {
     if (this.books) {
-      const f = this.books[this.data].chapter_ids[0]
+      const f = this.books[this.getBookIndex].chapter_ids[0]
       this.$store.dispatch("mangaModule/getChapterDetails", f)
     }
+    this.$store.dispatch("mangaModule/getBookDetails", (this.getBookIndex+1))
   },
   methods: {
     handleChapterSelect(cid) {
       this.$store.dispatch("mangaModule/getChapterDetails", cid)
-      this.$store.commit("mangaModule/SAVE_CHAPTER_ID", cid)
-      // this.$store.commit("mangaModule/SAVE_CHAPTER_LENGTH", this.books[this.data].chapter_ids[cid])
     },
     handleNext() {
       this.$store.dispatch("mangaModule/setPageNo", 1)
@@ -53,6 +52,12 @@ export default defineComponent({
         return state.mangaModule.page_no
       },
       ChapterInd: function(state) {
+        return state.mangaModule.chapter_index
+      },
+      getBookIndex: function(state) {
+        return state.mangaModule.book_index
+      },
+      getChapterIndex: function(state) {
         return state.mangaModule.chapter_index
       }
     })
