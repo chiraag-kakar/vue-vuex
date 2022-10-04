@@ -7,7 +7,7 @@
       </div>
     </div>
   </div>
-  <div class="flex-container" v-if="book">
+  <div class="flex-container">
     <div v-for="(todo1, index1) in books" :key="index1">
       <button class="justify-content mr-2" @click="method(index1)">{{todo1.title}}</button>
     </div>
