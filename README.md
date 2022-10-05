@@ -1,5 +1,5 @@
 # vue3-vuex-manga-viewer
-<img src="progress2.png">
+<img src="progress3.png">
 
 
 ## Project setup
