@@ -13,14 +13,14 @@ const actions = {
             ctx.commit("GET_BOOK_DETAILS", response)
     })
     },
-    getChapterDetails: async function (ctx, chapterId) {
+    getPageDetails: async function (ctx, chapterId) {
         apiClient.get(`chapters/${chapterId}/`).then(response => {
             ctx.commit("SAVE_CHAPTER_ID", chapterId)
-            ctx.commit("GET_CHAPTER_DETAILS", response)
+            ctx.commit("GET_PAGE_DETAILS", response)
     })
     },
-    setPageNo: function (ctx, pageNo, chapterLength) {
-        ctx.commit("UPDATE_PAGE_NO", pageNo, chapterLength)
+    setPageNo: function (ctx, pageNo, getBookDetails) {
+        ctx.commit("UPDATE_PAGE_NO", pageNo, getBookDetails)
     } 
 }
 

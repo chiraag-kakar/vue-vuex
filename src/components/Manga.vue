@@ -1,18 +1,10 @@
 <template>
-  <!-- <div class="container mt-3">
-    <div class="row">
-      <div class="col">
-        <p class="h3 text-success">Manga Viewer</p>
-        <p class="fst-italic"></p>
-      </div>
-    </div>
-  </div> -->
   <div class="flex-container" v-if="books">
     <div v-for="(todo, index) in books" :key="index">
       <button class="justify-content mr-2" @click="handleBookSelect(index)">{{todo.title}}</button>
     </div>
   </div>
-  <Chapter v-if="books[selectedBookInd]" :data="selectedBookInd" />
+  <Chapter v-if="books[bookIndex]" :data="bookIndex" />
 </template>
   
 <script>
@@ -34,9 +26,9 @@ export default defineComponent({
   },
   methods: {
     handleBookSelect(index) {
-      this.selectedBookInd = index
+      // this.selectedBookInd = index
       this.$store.commit("mangaModule/SAVE_BOOK_INDEX", index)
-      this.$store.dispatch("mangaModule/getChapterDetails", this.books[index].chapter_ids[0])
+      this.$store.dispatch("mangaModule/getPageDetails", this.books[index].chapter_ids[0])
     }
   },
   // computed: {
@@ -48,6 +40,9 @@ export default defineComponent({
     ...mapState({
       books: function (state) {
         return state.mangaModule.books
+      },
+      bookIndex: function (state) {
+        return state.mangaModule.book_index
       }
     })
   }

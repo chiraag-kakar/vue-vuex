@@ -2,15 +2,16 @@
   <div class="chapter-container" v-if="books">
     <div class="flex-container">
       <div v-for="(todo, index) in books[getBookIndex].chapter_ids" :key="index">
-        <button class="justify-content mr-2" @click="handleChapterSelect(todo)">{{todo}}</button>
+        <button class="justify-content mr-2" @click="handleChapterSelect(getChapterId)">{{todo}}</button>
       </div>
     </div>
-    <div v-if="getChapterDetails[PageNo]" class="image-container">
+    <div class="flex-container"></div>
+    <div v-if="getPageDetails[PageNo]" class="image-container">
       <button class="button-prev" @click="handlePrev()"></button>
-      <img :src="getChapterDetails[PageNo].image.file" alt="" />
+      <img :src="getPageDetails[PageNo].image.file" alt="" />
       <button class="button-next" @click="handleNext()"></button>
     </div>
-    <div v-if="getChapterDetails[PageNo]">{{(getChapterDetails[PageNo].page_index)+1}}/{{getChapterDetails.length}}
+    <div v-if="getPageDetails[PageNo]">{{(getPageDetails[PageNo].page_index)+1}}/{{getPageDetails.length}}
     </div>
   </div>
 </template>
@@ -25,19 +26,19 @@ export default defineComponent({
   beforeMount() {
     if (this.books) {
       const f = this.books[this.getBookIndex].chapter_ids[0]
-      this.$store.dispatch("mangaModule/getChapterDetails", f)
+      this.$store.dispatch("mangaModule/getPageDetails", f)
     }
     this.$store.dispatch("mangaModule/getBookDetails", (this.getBookIndex + 1))
   },
   methods: {
     handleChapterSelect(cid) {
-      this.$store.dispatch("mangaModule/getChapterDetails", cid)
+      this.$store.dispatch("mangaModule/getPageDetails", cid)
     },
     handleNext() {
-      this.$store.dispatch("mangaModule/setPageNo", 1)
+      this.$store.dispatch("mangaModule/setPageNo", 1, this.getBookDetails)
     },
     handlePrev() {
-      this.$store.dispatch("mangaModule/setPageNo", -1)
+      this.$store.dispatch("mangaModule/setPageNo", -1, this.getBookDetails)
     }
   },
   computed: {
@@ -45,14 +46,14 @@ export default defineComponent({
       books: function (state) {
         return state.mangaModule.books
       },
-      getChapterDetails: function (state) {
-        return state.mangaModule.chapter_details
+      getPageDetails: function (state) {
+        return state.mangaModule.page_details
       },
       PageNo: function (state) {
         console.log('Page No', state.mangaModule.page_no)
         return state.mangaModule.page_no
       },
-      ChapterId: function (state) {
+      getChapterId: function (state) {
         return state.mangaModule.chapter_id
       },
       getBookIndex: function (state) {
@@ -60,31 +61,20 @@ export default defineComponent({
       },
       getChapterIndex: function (state) {
         return state.mangaModule.chapter_id
+      },
+      getBookDetails : function(state) {
+        return state.mangaModule.book
       }
     })
   },
   watch: {
-    PageNo: {
-      handler: function (newValue) {
-        console.log('PageNo', newValue)
-      },
-      deep: true,
-      immediate: true
-    },
-    books: {
-      handler: function (newValue) {
-        console.log('books', newValue)
-      },
-      deep: true,
-      immediate: true
-    },
-    getChapterDetails: {
-      handler: function (newValue) {
-        console.log('getChapterDetails', newValue)
-      },
-      deep: true,
-      immediate: true
-    },
+    // PageNo: {
+    //   handler: function (newValue) {
+    //     console.log('PageNo', newValue)
+    //   },
+    //   deep: true,
+    //   immediate: true
+    // }
   }
 })
 </script>
