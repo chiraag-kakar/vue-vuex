@@ -2,7 +2,7 @@
   <div class="chapter-container" v-if="books">
     <div class="flex-container">
       <div v-for="(todo, index) in books[getBookIndex].chapter_ids" :key="index">
-        <button class="justify-content mr-2" @click="handleChapterSelect(getChapterId)">{{todo}}</button>
+        <button class="justify-content mr-2" @click="handleChapterSelect(todo)">{{todo}}</button>
       </div>
     </div>
     <div class="flex-container"></div>
@@ -32,6 +32,9 @@ export default defineComponent({
   },
   methods: {
     handleChapterSelect(cid) {
+      console.log('cid', cid)
+      this.$store.commit("mangaModule/UPDATE_PAGE_NO", 0)
+      this.$store.commit("mangaModule/SAVE_CHAPTER_ID", cid)
       this.$store.dispatch("mangaModule/getPageDetails", cid)
     },
     handleNext() {
@@ -53,14 +56,8 @@ export default defineComponent({
         console.log('Page No', state.mangaModule.page_no)
         return state.mangaModule.page_no
       },
-      getChapterId: function (state) {
-        return state.mangaModule.chapter_id
-      },
       getBookIndex: function (state) {
         return state.mangaModule.book_index
-      },
-      getChapterIndex: function (state) {
-        return state.mangaModule.chapter_id
       },
       getBookDetails : function(state) {
         return state.mangaModule.book

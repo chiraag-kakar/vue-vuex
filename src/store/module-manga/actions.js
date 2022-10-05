@@ -15,7 +15,6 @@ const actions = {
     },
     getPageDetails: async function (ctx, chapterId) {
         apiClient.get(`chapters/${chapterId}/`).then(response => {
-            ctx.commit("SAVE_CHAPTER_ID", chapterId)
             ctx.commit("GET_PAGE_DETAILS", response)
     })
     },

@@ -16,7 +16,6 @@ export default defineComponent({
   name: "MangaComponent",
   components: { Chapter },
   beforeMount() {
-    console.log('beforemount manag')
     this.$store.dispatch("mangaModule/getBooks")
   },
   setup() {
@@ -26,8 +25,8 @@ export default defineComponent({
   },
   methods: {
     handleBookSelect(index) {
-      // this.selectedBookInd = index
       this.$store.commit("mangaModule/SAVE_BOOK_INDEX", index)
+      this.$store.commit("mangaModule/UPDATE_PAGE_NO", 0)
       this.$store.dispatch("mangaModule/getPageDetails", this.books[index].chapter_ids[0])
     }
   },
