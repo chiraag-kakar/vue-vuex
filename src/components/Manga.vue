@@ -1,12 +1,12 @@
 <template>
-  <div class="container mt-3">
+  <!-- <div class="container mt-3">
     <div class="row">
       <div class="col">
         <p class="h3 text-success">Manga Viewer</p>
         <p class="fst-italic"></p>
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="flex-container" v-if="books">
     <div v-for="(todo, index) in books" :key="index">
       <button class="justify-content mr-2" @click="handleBookSelect(index)">{{todo.title}}</button>
