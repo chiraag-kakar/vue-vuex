@@ -1,0 +1,1 @@
+export const publicPath = '/vue-vuex-v1/';
